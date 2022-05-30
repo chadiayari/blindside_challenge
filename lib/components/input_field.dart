@@ -32,15 +32,15 @@ class LoginInputField extends StatelessWidget {
         enableSuggestions: !pwd,
         autocorrect: !pwd,
         controller: inputController,
-        cursorColor: Colors.black,
-        style: const TextStyle(color: Colors.black),
+        cursorColor: Colors.white,
+        style: const TextStyle(color: Colors.white),
         decoration: InputDecoration(
           fillColor: Colors.white,
           focusedBorder: const UnderlineInputBorder(
             borderSide: BorderSide(color: Colors.blue),
           ),
           hintText: hintText,
-          hintStyle: TextStyle(color: Colors.black.withOpacity(0.3)),
+          hintStyle: TextStyle(color: Colors.white.withOpacity(0.7)),
         ),
       ),
     );

@@ -4,6 +4,8 @@ import 'package:blindside_challenge/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 
+import '../home_screen.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -38,18 +40,13 @@ class _LoginScreen extends State<LoginScreen> with WidgetsBindingObserver {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      extendBodyBehindAppBar: false,
-      appBar: AppBar(
-        centerTitle: false,
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-      ),
       body: Container(
         decoration: const BoxDecoration(
-          color: Colors.white,
+          color: Colors.black,
         ),
         child: ListView(
           children: [
+            SizedBox(height: size.height * 0.05),
             Center(
               child: Text(
                 "Sign in",
@@ -59,18 +56,11 @@ class _LoginScreen extends State<LoginScreen> with WidgetsBindingObserver {
                     fontWeight: FontWeight.bold),
               ),
             ),
-            SizedBox(height: size.height * 0.1),
-            const Padding(
-              padding: EdgeInsets.only(left: 20.0),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: Text("Email"),
-              ),
-            ),
+            SizedBox(height: size.height * 0.05),
             Padding(
               padding: EdgeInsets.only(left: size.width * 0.05),
               child: LoginInputField(
-                hintText: "exmp@example.com",
+                hintText: "Email",
                 onPressed: () {},
                 inputController: emailController,
                 pwd: false,
@@ -92,6 +82,7 @@ class _LoginScreen extends State<LoginScreen> with WidgetsBindingObserver {
                 pwd: true,
               ),
             ),
+            SizedBox(height: size.height * 0.02),
             Container(
               padding: const EdgeInsets.fromLTRB(60, 10, 60, 10),
               child: MaterialButton(
@@ -111,33 +102,29 @@ class _LoginScreen extends State<LoginScreen> with WidgetsBindingObserver {
                             color: Colors.white),
                       ),
                     ]),
-                onPressed: emailController.text == "" ||
-                        passwordController.text == ""
-                    ? null
-                    : () async {
-                        setState(() {
-                          loading();
-                        });
+                onPressed: () async {
+                  setState(() {
+                    loading();
+                  });
 
-                        try {
-                          await UserService().signIn(
-                              emailController.text, passwordController.text);
-                          if (await SharedPref().read("user") != null) {
-                            // Navigator.pushReplacement(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (_) =>
-                            //             const HomeScreen()));
-                          }
-                        } catch (error) {
-                          Loader.hide();
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Login incorrect'),
-                            ),
-                          );
-                        }
-                      },
+                  try {
+                    await UserService()
+                        .signIn(emailController.text, passwordController.text);
+                    if (await SharedPref().read("user") != null) {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => const HomeScreen()));
+                    }
+                  } catch (error) {
+                    Loader.hide();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Login incorrect'),
+                      ),
+                    );
+                  }
+                },
               ),
             ),
             const Spacer(),
