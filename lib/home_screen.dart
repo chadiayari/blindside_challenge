@@ -1,3 +1,4 @@
+import 'package:blindside_challenge/auth/login_screen.dart';
 import 'package:blindside_challenge/components/video_widget.dart';
 import 'package:blindside_challenge/models/video_model.dart';
 import 'package:blindside_challenge/services/shared_pref.dart';
@@ -96,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () {
               SharedPref().clear();
               Navigator.of(context).pushAndRemoveUntil(
-                CupertinoPageRoute(builder: (context) => const HomeScreen()),
+                CupertinoPageRoute(builder: (context) => const LoginScreen()),
                 (_) => false,
               );
             },
