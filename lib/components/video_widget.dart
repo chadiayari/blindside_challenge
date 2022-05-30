@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 
+import '../asset_player_screen.dart';
+
 class VideoWidget extends StatelessWidget {
   final String videoName;
+  final String videoNumber;
   final String uploader;
   final String nbViews;
   final int months;
-  final String imageName;
+  final String coverName;
 
   const VideoWidget({
     Key? key,
     required this.videoName,
+    required this.videoNumber,
     required this.uploader,
     required this.nbViews,
     required this.months,
-    required this.imageName,
+    required this.coverName,
   }) : super(key: key);
 
   @override
@@ -31,13 +35,26 @@ class VideoWidget extends StatelessWidget {
                   fit: BoxFit.fitWidth,
                   colorFilter: ColorFilter.mode(
                       Colors.black.withOpacity(0.5), BlendMode.dstATop),
-                  image: AssetImage("assets/images/" + imageName)),
+                  image: AssetImage("assets/images/" + coverName + ".jpg")),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Container(
               margin: EdgeInsets.all(size.width * 0.15),
               child: RawMaterialButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => AssetPlayerScreen(
+                          videoName: videoName,
+                          uploader: uploader,
+                          nbViews: nbViews,
+                          months: months,
+                          videoNumber: videoNumber,
+                          coverName: coverName),
+                    ),
+                  );
+                },
                 fillColor: Colors.blue,
                 child: Icon(
                   Icons.play_arrow,
