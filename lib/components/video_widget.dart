@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 import '../asset_player_screen.dart';
+import '../models/video_model.dart';
 
 class VideoWidget extends StatelessWidget {
   final String videoName;
   final String videoNumber;
   final String uploader;
   final String nbViews;
+  final List<Video> videos;
   final int months;
   final String coverName;
 
@@ -16,6 +18,7 @@ class VideoWidget extends StatelessWidget {
     required this.videoNumber,
     required this.uploader,
     required this.nbViews,
+    required this.videos,
     required this.months,
     required this.coverName,
   }) : super(key: key);
@@ -51,6 +54,7 @@ class VideoWidget extends StatelessWidget {
                           nbViews: nbViews,
                           months: months,
                           videoNumber: videoNumber,
+                          videos: videos,
                           coverName: coverName),
                     ),
                   );

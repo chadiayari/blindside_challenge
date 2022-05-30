@@ -38,7 +38,6 @@ dependencies:
   flutter_overlay_loader: ^2.0.0
   http: ^0.13.4
   video_player: ^2.4.2
-  lorem_ipsum: ^0.0.1
 
 dev_dependencies:
   flutter_test:

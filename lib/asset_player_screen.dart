@@ -1,14 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:blindside_challenge/components/video_player_widget.dart';
-import 'package:lorem_ipsum/lorem_ipsum.dart';
 import 'package:video_player/video_player.dart';
+
+import 'components/video_widget.dart';
+import 'models/video_model.dart';
 
 class AssetPlayerScreen extends StatefulWidget {
   final String videoName;
   final String videoNumber;
   final String uploader;
   final String nbViews;
+  final List<Video> videos;
   final int months;
   final String coverName;
   const AssetPlayerScreen({
@@ -18,6 +21,7 @@ class AssetPlayerScreen extends StatefulWidget {
     required this.uploader,
     required this.nbViews,
     required this.months,
+    required this.videos,
     required this.coverName,
   }) : super(key: key);
 
@@ -35,6 +39,7 @@ class _AssetPlayerScreen extends State<AssetPlayerScreen> {
   String coverName = "";
   String asset = 'assets/videos/';
   bool comments = true;
+  List<Video> videos = [];
 
   @override
   void initState() {
@@ -43,6 +48,7 @@ class _AssetPlayerScreen extends State<AssetPlayerScreen> {
     uploader = widget.uploader;
     nbViews = widget.nbViews;
     months = widget.months;
+    videos = widget.videos;
     coverName = widget.coverName;
     videoNumber = widget.videoNumber;
     controller = VideoPlayerController.asset(asset + videoNumber + ".mp4")
@@ -88,8 +94,9 @@ class _AssetPlayerScreen extends State<AssetPlayerScreen> {
               children: [
                 Text(
                   videoName,
-                  style: const TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white, fontSize: 20),
                 ),
+                SizedBox(height: size.height * 0.02),
                 Row(
                   children: [
                     Text(
@@ -110,9 +117,12 @@ class _AssetPlayerScreen extends State<AssetPlayerScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       "Comments",
-                      style: TextStyle(color: Colors.white.withOpacity(0.8)),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold),
                     ),
                     CupertinoSwitch(
                       value: comments,
@@ -123,7 +133,32 @@ class _AssetPlayerScreen extends State<AssetPlayerScreen> {
                     ),
                   ],
                 ),
-                Text(loremIpsum(words: 60))
+                SizedBox(height: size.height * 0.03),
+                comments
+                    ? Text(
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                        style: TextStyle(color: Colors.white),
+                      )
+                    : Container(),
+                SizedBox(height: size.height * 0.04),
+                Text(
+                  "Related videos",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: size.height * 0.02),
+                for (int i = 0; i < 3; i++)
+                  VideoWidget(
+                    videoName: videos[i].videoName,
+                    uploader: videos[i].uploader,
+                    nbViews: videos[i].nbViews,
+                    months: videos[i].months,
+                    videos: videos,
+                    coverName: videos[i].coverName,
+                    videoNumber: videos[i].videoNumber,
+                  ),
               ],
             ),
           ),

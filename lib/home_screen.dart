@@ -119,6 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 nbViews: videos[index].nbViews,
                 months: videos[index].months,
                 coverName: videos[index].coverName,
+                videos: videos,
                 videoNumber: videos[index].videoNumber,
               );
             },
