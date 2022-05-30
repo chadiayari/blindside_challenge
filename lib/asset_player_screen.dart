@@ -135,13 +135,13 @@ class _AssetPlayerScreen extends State<AssetPlayerScreen> {
                 ),
                 SizedBox(height: size.height * 0.03),
                 comments
-                    ? Text(
+                    ? const Text(
                         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
                         style: TextStyle(color: Colors.white),
                       )
                     : Container(),
                 SizedBox(height: size.height * 0.04),
-                Text(
+                const Text(
                   "Related videos",
                   style: TextStyle(
                       color: Colors.white,
