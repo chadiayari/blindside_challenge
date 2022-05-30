@@ -1,5 +1,7 @@
 import 'package:blindside_challenge/components/video_widget.dart';
 import 'package:blindside_challenge/models/video_model.dart';
+import 'package:blindside_challenge/services/shared_pref.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 //import 'package:rflutter_alert/rflutter_alert.dart';
@@ -92,7 +94,11 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           RawMaterialButton(
             onPressed: () {
-              Navigator.pop(context);
+              SharedPref().clear();
+              Navigator.of(context).pushAndRemoveUntil(
+                CupertinoPageRoute(builder: (context) => const HomeScreen()),
+                (_) => false,
+              );
             },
             child: const Icon(
               Icons.logout,
